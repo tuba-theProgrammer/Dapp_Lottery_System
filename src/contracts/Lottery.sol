@@ -10,6 +10,7 @@ contract Lottery{
     // payable
     // with playable - we can send ether to it
     address payable[] public players;
+    string public name;
 
     // the lotter will also have a manager which is externally owned the 
     // account that deployes the contract, start the lottery, picks the winne and resets
@@ -17,13 +18,18 @@ contract Lottery{
      address public manager;
 
      constructor(){
+         name = "Lottery Dapp Project";
          manager= msg.sender;
          // challenge - 2
            // adding the manager to the lottery
        //  players.push(payable(manager));
      }
 
-
+   
+    event AmountReceive(
+        uint price
+    );
+   
    // how someone can enter in the lottery
 
    // - a user enters the lottery simply by using a wallet to send 0.1 eth
@@ -43,12 +49,12 @@ contract Lottery{
         // trasaction
 
        //  require(msg.value==100000000000000000); instead of this
-         require(msg.value==0.1 ether,'a player must send 0.1 ether'); // if there is any piece of code before require that will consume gas
+         require(msg.value==1 ether,'a player must send 1 ether'); // if there is any piece of code before require that will consume gas
 
         // here we add address that sends eth to the contract in the player's array
         players.push(payable(msg.sender)); // now anyone how sends eth will be added to the players array
         
-
+        emit AmountReceive(1 ether);
 
      } 
 
